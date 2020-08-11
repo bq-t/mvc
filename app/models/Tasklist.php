@@ -1,10 +1,5 @@
 <?
-	class Model {
-		protected $mysql;
-
-		public function __construct() {
-			$this->mysql = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-		}
+	class TasklistModel extends Model {
 
 		public function AddTask($desc) {
 			$query = $this->mysql->prepare("INSERT INTO `tasks` (`user_id`, `description`) VALUES (?, ?);");
@@ -38,5 +33,14 @@
 		public function GetTasks() {
 			$query = $this->mysql->query("SELECT * FROM `tasks` WHERE `user_id` = '$_SESSION[id]'");
 			return $query;
+		}
+
+		public function CheckUserById($id) {
+			$id = $this->mysql->prepare("SELECT * FROM `users` WHERE `id` = ?");
+			$id->bind_param('i', $id);
+			$id->execute();
+			$result = $id->get_result();
+
+			return $result->fetch_array();
 		}
 	}

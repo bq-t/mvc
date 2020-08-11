@@ -1,5 +1,12 @@
 <?
 	class Tasklist extends Controller {
+		private $model;
+
+		public function __construct() {
+			$this->model = new TasklistModel();
+		}
+
+
 		public function get_content() {
 			if(!$_SESSION['id']) {
 				header('Location: ./');
@@ -7,7 +14,15 @@
 
 			if($_POST['Add']) {
 				if(!empty($_POST['TaskName'])) {
-					$this->model->AddTask($_POST['TaskName']);
+					$check = $this->model->CheckUserById($_SESSION['id']);
+
+					if($check->num_rows) {
+
+						$string = htmlspecialchars($_POST['taskname'], ENT_QUOTES, 'UTF-8');
+						$this->model->AddTask($string);
+					}
+					else
+						echo "<div class='error'>Ошибка: Пользователь не найден!</div>";
 				}
 				else
 					echo "<div class='error'>Ошибка: вы не указали задачу!</div>";

@@ -1,9 +1,9 @@
 <?
 	abstract class Controller {
-		protected $model;
+		protected $connect;
 
 		function __construct() {
-			$this->model = new Model();
+			$this->connect = new Model();
 		}
 
 		public function get_body($view) {

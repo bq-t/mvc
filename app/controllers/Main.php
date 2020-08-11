@@ -1,5 +1,11 @@
 <?
 	class Main extends Controller {
+		private $model;
+
+		public function __construct() {
+			$this->model = new MainModel();
+		}
+
 		public function get_content() {
 
 			if($_POST['lo_submit']) {
@@ -7,7 +13,8 @@
 			}
 
 			if($_POST['submit']) {
-				$login = $_POST['login'];
+				$login = htmlspecialchars($_POST['login'], ENT_QUOTES, 'UTF-8');
+				//$login = $_POST['login'];
 				$reg = $this->model->CheckUserRegister($login);
 
 				if(!$reg->num_rows) {
