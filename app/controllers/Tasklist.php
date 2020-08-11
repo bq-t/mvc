@@ -17,8 +17,8 @@
 					$check = $this->model->CheckUserById($_SESSION['id']);
 
 					if($check->num_rows) {
+						$string = trim(strip_tags($_POST['TaskName']));
 
-						$string = htmlspecialchars($_POST['taskname'], ENT_QUOTES, 'UTF-8');
 						$this->model->AddTask($string);
 					}
 					else

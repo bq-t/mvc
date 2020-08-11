@@ -13,8 +13,8 @@
 			}
 
 			if($_POST['submit']) {
-				$login = htmlspecialchars($_POST['login'], ENT_QUOTES, 'UTF-8');
-				//$login = $_POST['login'];
+				$login = trim(strip_tags($_POST['login']));
+				
 				$reg = $this->model->CheckUserRegister($login);
 
 				if(!$reg->num_rows) {

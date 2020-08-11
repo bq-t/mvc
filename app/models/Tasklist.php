@@ -36,11 +36,11 @@
 		}
 
 		public function CheckUserById($id) {
-			$id = $this->mysql->prepare("SELECT * FROM `users` WHERE `id` = ?");
-			$id->bind_param('i', $id);
-			$id->execute();
-			$result = $id->get_result();
+			$query = $this->mysql->prepare("SELECT * FROM `users` WHERE `id` = ?");
+			$query->bind_param('i', $id);
+			$query->execute();
+			$result = $query->get_result();
 
-			return $result->fetch_array();
+			return $result;
 		}
 	}
